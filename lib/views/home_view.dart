@@ -3,27 +3,36 @@ import 'package:get/get.dart';
 import 'package:nyt_best_sellers/controllers/nyt_api_controller.dart';
 
 class HomeView extends GetView<NytApiController> {
+  const HomeView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Livros mais lidos do New York Time'),
-        backgroundColor: context.theme.colorScheme.inversePrimary,
+        backgroundColor: context.theme.colorScheme.primary,
+        foregroundColor: context.theme.colorScheme.onPrimary,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: controller.obx(
-          (state) => ListView.builder(
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(state.books[index].title),
-                leading: Text(state.books[index].cover),
-                subtitle: Text(state.books[index].shortDescription),
-                trailing: Text(state.books[index].author),
-              );
-            },
-            itemCount: state.books.length,
+      body: Obx(
+        () => ListView.builder(
+          padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 80.0),
+          itemBuilder: (context, index) => Card(
+            child: ListTile(
+              leading: Image.network(controller.books[index].cover),
+              title: Text(controller.books[index].title),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Text(controller.books[index].author),
+                  ),
+                  Text(controller.books[index].shortDescription),
+                ],
+              ),
+            ),
           ),
+          itemCount: controller.books.length,
         ),
       ),
       floatingActionButton: FloatingActionButton(

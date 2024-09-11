@@ -22,7 +22,7 @@ class App extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: HomeView(),
+      home: const HomeView(),
     );
   }
 }

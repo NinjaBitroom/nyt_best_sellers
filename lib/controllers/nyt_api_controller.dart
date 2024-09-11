@@ -1,7 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart';
 import 'package:nyt_best_sellers/models/book_overview_model.dart';
 
 class NytApiController extends GetMaterialController {
@@ -15,8 +15,15 @@ class NytApiController extends GetMaterialController {
   );
   var books = [].obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    updateBooks();
+  }
+
   Future<void> updateBooks() async {
     try {
+      books.clear();
       final bestSellers = [];
       final response = await _dio.get('/lists/overview.json');
       for (var result in response.data['results']['lists']) {
@@ -30,11 +37,9 @@ class NytApiController extends GetMaterialController {
           bestSellers.add(bookOverview);
         }
       }
-      books.clear();
       books.addAll(bestSellers);
-      debugPrint(books.toString());
     } on DioException catch (e) {
-      debugPrint('${e.message}.toString()');
+      debugPrint('Ocorreu um erro... ${e.message}');
     }
   }
 }
