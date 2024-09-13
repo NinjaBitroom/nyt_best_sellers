@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyt_best_sellers/utils/initial_binding.dart';
 import 'package:nyt_best_sellers/views/home_view.dart';
 
 class App extends StatelessWidget {
@@ -8,7 +9,6 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'NYT Best Sellers App',
       theme: ThemeData.from(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.redAccent,
@@ -22,6 +22,8 @@ class App extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
+      initialBinding: InitialBinding(),
+      title: 'NYT Best Sellers App',
       home: const HomeView(),
     );
   }
