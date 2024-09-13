@@ -11,18 +11,13 @@ class NytApiController extends GetxController
   }
 
   Future<void> updateBooks() async {
-    change(null, status: RxStatus.loading());
     try {
+      change(null, status: RxStatus.loading());
       final bestSellers = <BookOverviewModel>[];
       final response = await Get.find<Dio>().get('/lists/overview.json');
       for (var result in response.data['results']['lists']) {
         for (var book in result['books']) {
-          final bookOverview = BookOverviewModel(
-            cover: book['book_image'].toString(),
-            title: book['title'].toString(),
-            author: book['author'].toString(),
-            shortDescription: book['description'].toString(),
-          );
+          final bookOverview = BookOverviewModel.fromJson(book);
           bestSellers.add(bookOverview);
         }
       }
