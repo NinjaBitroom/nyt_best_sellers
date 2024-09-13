@@ -13,26 +13,26 @@ class HomeView extends GetView<NytApiController> {
         backgroundColor: context.theme.colorScheme.primary,
         foregroundColor: context.theme.colorScheme.onPrimary,
       ),
-      body: Obx(
-        () => ListView.builder(
+      body: controller.obx(
+        (state) => ListView.builder(
           padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 80.0),
           itemBuilder: (context, index) => Card(
             child: ListTile(
-              leading: Image.network(controller.books[index].cover),
-              title: Text(controller.books[index].title),
+              leading: Image.network(state![index].cover),
+              title: Text(state[index].title),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: Text(controller.books[index].author),
+                    child: Text(state[index].author),
                   ),
-                  Text(controller.books[index].shortDescription),
+                  Text(state[index].shortDescription),
                 ],
               ),
             ),
           ),
-          itemCount: controller.books.length,
+          itemCount: state?.length,
         ),
       ),
       floatingActionButton: FloatingActionButton(

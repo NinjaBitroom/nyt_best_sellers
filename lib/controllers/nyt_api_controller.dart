@@ -1,11 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyt_best_sellers/models/book_overview_model.dart';
 
-class NytApiController extends GetMaterialController {
-  var books = [].obs;
-
+class NytApiController extends GetxController
+    with StateMixin<List<BookOverviewModel>> {
   @override
   void onInit() {
     super.onInit();
@@ -13,9 +11,9 @@ class NytApiController extends GetMaterialController {
   }
 
   Future<void> updateBooks() async {
+    change(null, status: RxStatus.loading());
     try {
-      books.clear();
-      final bestSellers = [];
+      final bestSellers = <BookOverviewModel>[];
       final response = await Get.find<Dio>().get('/lists/overview.json');
       for (var result in response.data['results']['lists']) {
         for (var book in result['books']) {
@@ -28,9 +26,11 @@ class NytApiController extends GetMaterialController {
           bestSellers.add(bookOverview);
         }
       }
-      books.addAll(bestSellers);
+      change(bestSellers, status: RxStatus.success());
     } on DioException catch (e) {
-      debugPrint('Ocorreu um erro... ${e.message}');
+      change(null, status: RxStatus.error(e.message));
+    } catch (e) {
+      change(null, status: RxStatus.error(e.toString()));
     }
   }
 }
