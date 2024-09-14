@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:nyt_best_sellers/models/book_overview_model.dart';
 
-class NytApiController extends GetxController
+class BookOverviewController extends GetxController
     with StateMixin<List<BookOverviewModel>> {
   @override
   void onInit() {
@@ -17,7 +17,14 @@ class NytApiController extends GetxController
       final response = await Get.find<Dio>().get('/lists/overview.json');
       for (var result in response.data['results']['lists']) {
         for (var book in result['books']) {
-          final bookOverview = BookOverviewModel.fromJson(book);
+          final bookOverview = BookOverviewModel.fromJson({
+            'isbn': book['primary_isbn13'],
+            'list_id': result['list_id'],
+            'cover': book['book_image'],
+            'title': book['title'],
+            'author': book['author'],
+            'short_description': book['description'],
+          });
           bestSellers.add(bookOverview);
         }
       }

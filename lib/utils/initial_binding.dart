@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:nyt_best_sellers/controllers/nyt_api_controller.dart';
+import 'package:nyt_best_sellers/controllers/book_overview_controller.dart';
 
 class InitialBinding extends Bindings {
   @override
@@ -13,6 +13,6 @@ class InitialBinding extends Bindings {
       ),
     );
     Get.put(Dio(Get.find<BaseOptions>()));
-    Get.put(NytApiController());
+    Get.put(BookOverviewController());
   }
 }
