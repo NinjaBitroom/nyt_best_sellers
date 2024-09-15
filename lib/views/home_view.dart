@@ -33,7 +33,10 @@ class HomeView extends GetView<BookOverviewController> {
                     padding: const EdgeInsets.only(bottom: 12),
                     child: Text(state[index].author),
                   ),
-                  Text(state[index].shortDescription),
+                  Text(
+                    state[index].shortDescription,
+                    maxLines: 3,
+                  ),
                 ],
               ),
             ),
