@@ -28,11 +28,11 @@ class BookOverviewController extends GetxController
           bestSellers.add(bookOverview);
         }
       }
-      change(bestSellers, status: RxStatus.success());
+      return change(bestSellers, status: RxStatus.success());
     } on DioException catch (e) {
-      change(null, status: RxStatus.error(e.message));
+      return change(null, status: RxStatus.error(e.message));
     } catch (e) {
-      change(null, status: RxStatus.error(e.toString()));
+      return change(null, status: RxStatus.error(e.toString()));
     }
   }
 }

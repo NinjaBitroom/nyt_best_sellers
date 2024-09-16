@@ -27,18 +27,15 @@ class BookDetailsController extends GetxController
           if ((book['primary_isbn13'] == bookOverview.isbn) ||
               (book['primary_isbn10'] == bookOverview.isbn)) {
             final bookDetail = BookDetailsModel.fromJson(book);
-            change(bookDetail, status: RxStatus.success());
-            break;
+            return change(bookDetail, status: RxStatus.success());
           }
         }
       }
     } on DioException catch (e) {
-      change(null, status: RxStatus.error(e.message));
+      return change(null, status: RxStatus.error(e.message));
     } catch (e) {
-      change(null, status: RxStatus.error(e.toString()));
+      return change(null, status: RxStatus.error(e.toString()));
     }
-    if (state == null) {
-      change(null, status: RxStatus.empty());
-    }
+    return change(null, status: RxStatus.empty());
   }
 }
