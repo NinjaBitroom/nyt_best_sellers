@@ -76,6 +76,7 @@ class BookDetailsView extends GetView<BookDetailsController> {
         future: ColorScheme.fromImageProvider(
           provider: NetworkImage(controller.bookOverview.cover),
           brightness: Theme.of(context).brightness,
+          dynamicSchemeVariant: DynamicSchemeVariant.content,
         ),
       ),
     );
