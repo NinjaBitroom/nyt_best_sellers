@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:nyt_best_sellers/controllers/book_overview_controller.dart';
+import 'package:nyt_best_sellers/controllers/book_details_controller.dart';
+import 'package:nyt_best_sellers/controllers/books_list_controller.dart';
 
 class InitialBinding extends Bindings {
   @override
@@ -13,6 +14,7 @@ class InitialBinding extends Bindings {
       ),
     );
     Get.put(Dio(Get.find<BaseOptions>()));
-    Get.put(BookOverviewController());
+    Get.put(BooksListController());
+    Get.put(BookDetailsController());
   }
 }

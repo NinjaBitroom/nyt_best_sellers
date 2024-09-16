@@ -10,7 +10,7 @@ class BookDetailsView extends GetView<BookDetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(controller.bookOverview.title),
+        title: Text(controller.state!.title),
         backgroundColor: context.theme.colorScheme.primary,
         foregroundColor: context.theme.colorScheme.onPrimary,
       ),
@@ -36,14 +36,14 @@ class BookDetailsView extends GetView<BookDetailsController> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 32.0),
-                          child: Image.network(controller.bookOverview.cover),
+                          child: Image.network(controller.state!.cover),
                         ),
                         ListTile(
                           title: Text(
-                            'Autor: ${controller.bookOverview.author}',
+                            'Autor: ${controller.state!.author}',
                           ),
                           subtitle: Text(
-                            'ISBN: ${controller.bookOverview.isbn}',
+                            'ISBN: ${controller.state!.isbn}',
                           ),
                         ),
                       ],
@@ -55,26 +55,26 @@ class BookDetailsView extends GetView<BookDetailsController> {
                   child: Card.filled(
                     child: ListTile(
                       title: const Text('Descrição'),
-                      subtitle: Text(controller.bookOverview.shortDescription),
+                      subtitle: Text(controller.state!.description),
                     ),
                   ),
                 ),
-                controller.obx(
-                  (state) => FilledButton(
-                    onPressed: () async {
-                      if (!await launchUrl(Uri.parse(state!.amazonLink))) {
-                        throw Exception('Could not launch $state.amazonLink');
-                      }
-                    },
-                    child: const Text('Comprar na Amazon'),
-                  ),
+                FilledButton(
+                  onPressed: () async {
+                    if (!await launchUrl(
+                        Uri.parse(controller.state!.amazonLink))) {
+                      throw Exception(
+                          'Could not launch ${controller.state?.amazonLink}');
+                    }
+                  },
+                  child: const Text('Comprar na Amazon'),
                 ),
               ],
             ),
           );
         },
         future: ColorScheme.fromImageProvider(
-          provider: NetworkImage(controller.bookOverview.cover),
+          provider: NetworkImage(controller.state!.cover),
           brightness: Theme.of(context).brightness,
           dynamicSchemeVariant: DynamicSchemeVariant.content,
         ),

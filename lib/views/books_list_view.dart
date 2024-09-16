@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyt_best_sellers/controllers/book_details_controller.dart';
-import 'package:nyt_best_sellers/controllers/book_overview_controller.dart';
+import 'package:nyt_best_sellers/controllers/books_list_controller.dart';
 import 'package:nyt_best_sellers/views/book_details_view.dart';
 
-class HomeView extends GetView<BookOverviewController> {
-  const HomeView({super.key});
+class BooksListView extends GetView<BooksListController> {
+  const BooksListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,8 @@ class HomeView extends GetView<BookOverviewController> {
           itemBuilder: (context, index) => Card(
             child: ListTile(
               onTap: () => Get.to(() {
-                Get.replace(BookDetailsController(bookOverview: state[index]));
+                final bookDetailsController = Get.find<BookDetailsController>();
+                bookDetailsController.updateBookDetails(state[index]);
                 return const BookDetailsView();
               }),
               leading: Image.network(state![index].cover),
@@ -34,7 +35,7 @@ class HomeView extends GetView<BookOverviewController> {
                     child: Text(state[index].author),
                   ),
                   Text(
-                    state[index].shortDescription,
+                    state[index].description,
                     maxLines: 3,
                   ),
                 ],

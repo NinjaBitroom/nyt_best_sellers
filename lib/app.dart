@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyt_best_sellers/utils/app_theme.dart';
 import 'package:nyt_best_sellers/utils/initial_binding.dart';
-import 'package:nyt_best_sellers/views/home_view.dart';
+import 'package:nyt_best_sellers/views/books_list_view.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialBinding: InitialBinding(),
       title: 'NYT Best Sellers App',
-      home: const HomeView(),
+      home: const BooksListView(),
     );
   }
 }

@@ -1,24 +1,27 @@
-class BookDetailsModel {
+class BookModel {
+  String isbn;
   String cover;
   String title;
   String author;
-  String synopsis;
+  String description;
   String amazonLink;
 
-  BookDetailsModel({
+  BookModel({
+    required this.isbn,
     required this.cover,
     required this.title,
     required this.author,
-    required this.synopsis,
+    required this.description,
     required this.amazonLink,
   });
 
-  factory BookDetailsModel.fromJson(Map<String, dynamic> json) {
-    return BookDetailsModel(
+  factory BookModel.fromJson(Map<String, dynamic> json) {
+    return BookModel(
+      isbn: json['primary_isbn13'],
       cover: json['book_image'].toString(),
       title: json['title'].toString(),
       author: json['author'].toString(),
-      synopsis: json['description'].toString(),
+      description: json['description'].toString(),
       amazonLink: json['amazon_product_url'].toString(),
     );
   }
