@@ -5,9 +5,9 @@ import 'package:nyt_best_sellers/models/book_model.dart';
 class BooksListController extends GetxController
     with StateMixin<List<BookModel>> {
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    updateBooks();
+    await updateBooks();
   }
 
   Future<void> updateBooks() async {
